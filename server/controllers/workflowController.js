@@ -36,3 +36,15 @@ const analyzeWorkFlow = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+const getWorkflows = (req, res) => {
+  const query = "SELECT * FROM workflows ORDER BY created_at DESC";
+  db.query(query, (err, results) => {
+    if (err) {
+      return res.status(500).json({ error: "Database error" });
+    }
+    res.json(results);
+  });
+};
+
+module.export = { analyzeWorkFlow, getWorkflows };
