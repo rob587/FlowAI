@@ -47,4 +47,4 @@ const getWorkflows = (req, res) => {
   });
 };
 
-module.export = { analyzeWorkFlow, getWorkflows };
+module.exports = { analyzeWorkFlow, getWorkflows };
