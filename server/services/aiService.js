@@ -1,42 +1,44 @@
 const axios = require("axios");
 
-const analyze = async (InputText) => {
+const analyze = async (inputText) => {
   try {
+    console.log("🔄 Analyzing with Groq:", inputText);
+
     const response = await axios.post(
-      "https://api.openai.com/v1/chat/completions",
+      "https://api.groq.com/openai/v1/chat/completions",
       {
-        model: "gpt-3.5-turbo",
+        model: "mixtral-8x7b-32768",
         messages: [
           {
-            role: "system",
+            role: "user",
             content: `Tu sei un assistente per automatizzare azioni. 
-            Analizza il testo e rispondi SEMPRE in JSON con questo formato:
+            Analizza questo testo e rispondi SOLO in JSON valido:
             {
-              "action": "send_email" | "update_client" | "create_task",
+              "action": "send_email",
               "client_name": "nome",
               "subject": "soggetto",
               "message": "messaggio",
-              "urgency": "high" | "medium" | "low"
-            }`,
-          },
-          {
-            role: "user",
-            content: inputText,
+              "urgency": "high"
+            }
+            
+            Testo: "${inputText}"`,
           },
         ],
         temperature: 0.7,
+        max_tokens: 1024,
       },
       {
         headers: {
-          Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+          Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
         },
       },
     );
 
-    const content = response.data.choice[0].message.content;
+    console.log("✅ Groq Response:", response.data);
+    const content = response.data.choices[0].message.content;
     return JSON.parse(content);
   } catch (error) {
-    console.error("❌ OpenAI Error:", error.message);
+    console.error("❌ Groq Error:", error.response?.data || error.message);
     throw error;
   }
 };

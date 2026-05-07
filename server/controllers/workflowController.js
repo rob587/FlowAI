@@ -1,7 +1,7 @@
 const db = require("../db");
 const { analyze } = require("../services/aiService");
 
-const analyzeWorkFlow = async (req, res) => {
+const analyzeWorkflow = async (req, res) => {
   try {
     const { input_text } = req.body;
 
@@ -47,4 +47,4 @@ const getWorkflows = (req, res) => {
   });
 };
 
-module.exports = { analyzeWorkFlow, getWorkflows };
+module.exports = { analyzeWorkflow, getWorkflows };
