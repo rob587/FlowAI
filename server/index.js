@@ -10,6 +10,13 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+try {
+  const workflowRoutes = require("./routing/workflow");
+  console.log("✅ Rotte caricate");
+  app.use("/api/workflows", workflowRoutes);
+} catch (err) {
+  console.error("❌ Errore caricamento rotte:", err.message);
+}
 // endpoint test
 
 app.get("/", (req, res) => {
