@@ -93,4 +93,4 @@ const executeAction = async (req, res) => {
   }
 };
 
-module.exports = { executeAction, sendEmail, updateClient, createTask };
+module.exports = { executeAction, sendEmail, updClient, createTask };
