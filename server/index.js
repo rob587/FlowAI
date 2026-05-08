@@ -17,6 +17,14 @@ try {
 } catch (err) {
   console.error("❌ Errore caricamento rotte:", err.message);
 }
+
+try {
+  const actionRoutes = require("./routing/actions");
+  console.log("✅ Action routes loaded");
+  app.use("/api/actions", actionRoutes);
+} catch (err) {
+  console.error("❌ Error loading action routes:", err.message);
+}
 // endpoint test
 
 app.get("/", (req, res) => {
