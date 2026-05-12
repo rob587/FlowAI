@@ -12,7 +12,28 @@ const WorkflowAnalyzer = () => {
     }
     await analyzeInput(inputText);
   };
-  return <div></div>;
+  return (
+    <>
+      <div className="analyzer-container">
+        <h2>🤖 Analizzatore AI</h2>
+        <textarea
+          className="analyzer-input"
+          placeholder="Descrivi il problema... es: 'Il cliente Mario non paga da 2 mesi'"
+          value={inputText}
+          onChange={(e) => setInputText(e.target.value)}
+          disabled={loading}
+        />
+        <button
+          className="analyzer-btn"
+          onClick={handleAnalyze}
+          disabled={loading}
+        >
+          {loading ? "⏳ Analizzando..." : "Analizza"} <FiSend />
+        </button>
+        {error && <p className="error-text">❌ Errore: {error}</p>}
+      </div>
+    </>
+  );
 };
 
 export default WorkflowAnalyzer;
