@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { WorkflowContext } from "../context/WorkflowContext";
+import { FiSend } from "react-icons/fi";
 
 const WorkflowAnalyzer = () => {
   const [inputText, setInputText] = useState("");
