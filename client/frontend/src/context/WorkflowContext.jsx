@@ -35,4 +35,19 @@ export const WorkflowProvider = ({ children }) => {
       setLoading(false);
     }
   };
+
+  return (
+    <WorkflowContext.Provider
+      value={{
+        workflow,
+        actionResult,
+        loading,
+        error,
+        analyzeInput,
+        executeAction,
+      }}
+    >
+      {children}
+    </WorkflowContext.Provider>
+  );
 };
