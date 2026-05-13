@@ -3,7 +3,7 @@ import { WorkflowContext } from "../context/WorkflowContext";
 import { FiCheckCircle, FiPlay } from "react-icons/fi";
 
 const ActionResult = () => {
-  const { workflow, ActionResult, loading, executeAction } =
+  const { workflow, actionResult, loading, executeAction } =
     useContext(WorkflowContext);
 
   if (!workflow) return null;

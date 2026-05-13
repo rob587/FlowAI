@@ -8,12 +8,43 @@ export const WorkflowProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  // Analizza il testo con AI
   const analyzeInput = async (inputText) => {
     setLoading(true);
     setError(null);
     try {
       const response = await fetch(
         "http://localhost:5000/api/workflows/analyze",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ input_text: inputText }),
+        },
+      );
+      const data = await response.json();
+      setWorkflow(data);
+      setActionResult(null);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Esegui l'azione
+  const executeAction = async (
+    workflowId,
+    action,
+    clientName,
+    subject,
+    message,
+    urgency,
+  ) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/actions/execute",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
