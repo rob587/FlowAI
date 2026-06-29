@@ -21,10 +21,18 @@ export const WorkflowProvider = ({ children }) => {
           body: JSON.stringify({ input_text: inputText }),
         },
       );
+
+      console.log("Response status:", response.status);
+
+      if (!response.ok) {
+        throw new Error(`Errore ${response.status}: ${response.statusText}`);
+      }
+
       const data = await response.json();
       setWorkflow(data);
       setActionResult(null);
     } catch (err) {
+      console.error("❌ Errore:", err);
       setError(err.message);
     } finally {
       setLoading(false);

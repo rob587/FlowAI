@@ -16,7 +16,7 @@ const WorkflowAnalyzer = () => {
   return (
     <>
       <div className="analyzer-container">
-        <h2>🤖 Analizzatore AI</h2>
+        <h2> Analizzatore AI</h2>
         <textarea
           className="analyzer-input"
           placeholder="Descrivi il problema... es: 'Il cliente Mario non paga da 2 mesi'"

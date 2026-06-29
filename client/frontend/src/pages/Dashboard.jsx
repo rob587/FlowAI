@@ -9,7 +9,7 @@ const Dashboard = () => {
       <WorkflowProvider>
         <div className="dashboard">
           <div className="dashboard-header">
-            <h1>🚀 FlowAI</h1>
+            <h1>FlowAI</h1>
             <p>Automazione intelligente con AI</p>
           </div>
 

@@ -24,7 +24,7 @@ const ActionResult = () => {
   return (
     <>
       <div className="result-container">
-        <h3>📊 Analisi AI</h3>
+        <h3> Analisi AI</h3>
 
         <div className="analysis-card">
           <p>
@@ -59,7 +59,7 @@ const ActionResult = () => {
         {actionResult && (
           <div className="action-success">
             <FiCheckCircle size={24} />
-            <h4>✅ Azione Eseguita!</h4>
+            <h4> Azione Eseguita!</h4>
             <p>ID: {actionResult.action_id}</p>
             <pre>{JSON.stringify(actionResult.result, null, 2)}</pre>
           </div>

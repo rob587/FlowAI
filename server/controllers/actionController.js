@@ -34,7 +34,9 @@ const updClient = async (clientName, status) => {
 // simulazione creazione task
 
 const createTask = async (RTCSessionDescription, urgency) => {
-  console.log(`Creando la task: ${description} (urgency: ${urgency})`);
+  console.log(
+    `Creando la task: ${RTCSessionDescription} (urgency: ${urgency})`,
+  );
 
   return {
     success: true,
