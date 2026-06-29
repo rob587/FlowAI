@@ -26,12 +26,18 @@ Analizza questo testo e rispondi con JSON valido.
 
 Formato:
 {
-  "action": "send_email",
+  "action": "send_email" | "create_task" | "schedule_call" | "send_reminder",
   "client_name": "nome",
   "subject": "soggetto",
   "message": "messaggio",
-  "urgency": "high"
+  "urgency": "low" | "medium" | "high"
 }
+
+Scegli l'azione più appropriata:
+- send_email: per comunicazioni formali, pagamenti, preventivi
+- create_task: per attività da fare, follow-up, problemi tecnici
+- schedule_call: per appuntamenti, riunioni, chiamate
+- send_reminder: per scadenze, rinnovi, promemoria
 
 Testo: "${inputText}"
 `,

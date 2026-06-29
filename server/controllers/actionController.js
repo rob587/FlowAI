@@ -5,9 +5,6 @@ const db = require("../db");
 // simulazione invio email al cliente
 const sendEmail = async (clientName, subject, message) => {
   console.log(`Inviando email a: ${clientName}`);
-  console.log(`Soggetto: ${subject}`);
-  console.log(`Messaggio: ${message}`);
-
   return {
     success: true,
     type: "email-sent",
@@ -16,33 +13,37 @@ const sendEmail = async (clientName, subject, message) => {
   };
 };
 
-// simulazione aggiornamento Cliente
+// simulazione creazione task
 
-const updClient = async (clientName, status) => {
-  console.log(`Aggiornando cliente ${clientName} a status: ${status}`);
-
-  // oggetto
+const createTask = async (subject, urgency) => {
+  console.log(`Creando task: ${subject} (urgency: ${urgency})`);
   return {
     success: true,
-    type: "client_updated",
-    client: clientName,
-    status: status,
+    type: "task-created",
+    description: subject,
+    urgency: urgency,
     timestamp: new Date(),
   };
 };
 
-// simulazione creazione task
-
-const createTask = async (RTCSessionDescription, urgency) => {
-  console.log(
-    `Creando la task: ${RTCSessionDescription} (urgency: ${urgency})`,
-  );
-
+const scheduleCall = async (clientName, subject) => {
+  console.log(`Schedulando chiamata con: ${clientName}`);
   return {
     success: true,
-    type: "task_created",
-    description: description,
-    urgency: urgency,
+    type: "call-scheduled",
+    client: clientName,
+    subject: subject,
+    timestamp: new Date(),
+  };
+};
+
+const sendReminder = async (clientName, message) => {
+  console.log(`Inviando reminder a: ${clientName}`);
+  return {
+    success: true,
+    type: "reminder-sent",
+    recipient: clientName,
+    message: message,
     timestamp: new Date(),
   };
 };
@@ -54,18 +55,20 @@ const executeAction = async (req, res) => {
     const { workflow_id, action, client_name, subject, message, urgency } =
       req.body;
 
-    console.log("Eseguendo l'azione:", action);
+    console.log("Eseguendo azione:", action);
 
     let actionResult;
 
     if (action === "send_email") {
       actionResult = await sendEmail(client_name, subject, message);
-    } else if (action === "update_client") {
-      actionResult = await updateClient(client_name, urgency);
     } else if (action === "create_task") {
       actionResult = await createTask(subject, urgency);
+    } else if (action === "schedule_call") {
+      actionResult = await scheduleCall(client_name, subject);
+    } else if (action === "send_reminder") {
+      actionResult = await sendReminder(client_name, message);
     } else {
-      return res.status(400).json({ error: "Unknown action" });
+      return res.status(400).json({ error: "Azione non supportata" });
     }
 
     const query =
@@ -95,4 +98,10 @@ const executeAction = async (req, res) => {
   }
 };
 
-module.exports = { executeAction, sendEmail, updClient, createTask };
+module.exports = {
+  executeAction,
+  sendEmail,
+  createTask,
+  scheduleCall,
+  sendReminder,
+};
