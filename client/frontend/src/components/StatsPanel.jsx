@@ -1,4 +1,3 @@
-import React from "react";
 import React, { useEffect, useState } from "react";
 import { getStats } from "../services/api";
 import {
@@ -10,7 +9,7 @@ import {
 } from "react-icons/fi";
 
 const StatsPanel = () => {
-  const [stats, getStats] = useState(null);
+  const [stats, setStats] = useState(null);
 
   useEffect(() => {
     loadStats();
