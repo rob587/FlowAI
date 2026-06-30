@@ -1,6 +1,13 @@
 import React, { useContext } from "react";
 import { WorkflowContext } from "../context/WorkflowContext";
-import { FiCheckCircle, FiPlay } from "react-icons/fi";
+import {
+  FiCheckCircle,
+  FiPlay,
+  FiMail,
+  FiPhone,
+  FiClipboard,
+  FiBell,
+} from "react-icons/fi";
 
 const getActionIcon = (action) => {
   switch (action) {
