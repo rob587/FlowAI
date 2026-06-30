@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { getStats } from "../services/api";
 import {
   FiMail,
@@ -7,13 +7,15 @@ import {
   FiBell,
   FiActivity,
 } from "react-icons/fi";
+import { WorkflowContext } from "../context/WorkflowContext";
 
 const StatsPanel = () => {
   const [stats, setStats] = useState(null);
+  const { actionResult } = useContext(WorkflowContext);
 
   useEffect(() => {
     loadStats();
-  }, []);
+  }, [actionResult]);
 
   const loadStats = async () => {
     try {
