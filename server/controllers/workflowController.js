@@ -47,4 +47,24 @@ const getWorkflows = (req, res) => {
   });
 };
 
-module.exports = { analyzeWorkflow, getWorkflows };
+const getStats = (req, res) => {
+  const statsQuery = `
+    SELECT 
+      COUNT(*) as total_workflows,
+      SUM(CASE WHEN action_type = 'send_email' THEN 1 ELSE 0 END) as emails,
+      SUM(CASE WHEN action_type = 'create_task' THEN 1 ELSE 0 END) as tasks,
+      SUM(CASE WHEN action_type = 'schedule_call' THEN 1 ELSE 0 END) as calls,
+      SUM(CASE WHEN action_type = 'send_reminder' THEN 1 ELSE 0 END) as reminders
+    FROM workflows
+  `;
+
+  db.query(statsQuery, (err, results) => {
+    if (err) {
+      console.error(" DB Errore:", err);
+      return res.status(500).json({ error: "Database error" });
+    }
+    res.json(results[0]);
+  });
+};
+
+module.exports = { analyzeWorkflow, getWorkflows, getStats };
