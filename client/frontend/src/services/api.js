@@ -16,4 +16,8 @@ export const executeAction = (workflowId, action, data) => {
   });
 };
 
+export const getStats = () => {
+  return API.get("/workflows/stats");
+};
+
 export default API;
