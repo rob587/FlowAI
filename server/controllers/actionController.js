@@ -1,14 +1,43 @@
 // import del db
 
 const db = require("../db");
+const { Resend } = require("resend");
 
-// simulazione invio email al cliente
+const resend = new Resend(process.env.RESEND_API_KEY);
+
+//  invio email al cliente
 const sendEmail = async (clientName, subject, message) => {
   console.log(`Inviando email a: ${clientName}`);
+  const { data, error } = await resend.emails.send({
+    from: "onboarding@resend.dev",
+    to: "robertocamm.dev@gmail.com",
+    subject: subject,
+    html: `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+        <h2 style="color: #6366f1;">FlowAI — Notifica Cliente</h2>
+        <p><strong>Cliente:</strong> ${clientName}</p>
+        <p><strong>Soggetto:</strong> ${subject}</p>
+        <div style="background: #f1f5f9; padding: 20px; border-radius: 8px; margin-top: 20px;">
+          <p>${message}</p>
+        </div>
+        <p style="color: #94a3b8; font-size: 12px; margin-top: 20px;">
+          Inviato automaticamente da FlowAI
+        </p>
+      </div>
+    `,
+  });
+
+  if (error) {
+    console.error("Errore Resend", error);
+    throw new Error(error.message);
+  }
+
+  console.log("Email Inviata", data);
   return {
     success: true,
     type: "email-sent",
     recipient: clientName,
+    email_id: data.id,
     timestamp: new Date(),
   };
 };
